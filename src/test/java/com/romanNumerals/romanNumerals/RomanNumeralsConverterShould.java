@@ -2,6 +2,8 @@ package com.romanNumerals.romanNumerals;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -16,18 +18,21 @@ class RomanNumeralsConverterShould {
 		target = new RomanNumeralsConverter();
 	}
 
-	@Test
-	void convert_one_to_numeral_I() {
-		assertEquals(target.convert(1), "I");
+	@ParameterizedTest
+	@CsvSource({
+			"1,I",
+			"2,II",
+			"3,III",
+			"4,IV",
+			"5,V",
+			"10,X",
+			"50,L",
+			"100,C",
+			"500,D",
+			"1000,M"
+	})
+	void convert_arabic_numbers_to_roman_numerals(int amount, String numeral) {
+		assertEquals(target.convert(amount), numeral);
 	}
 
-	@Test
-	void convert_five_to_numeral_V() {
-		assertEquals(target.convert(5), "V");
-	}
-
-	@Test
-	void convert_ten_to_numeral_X() {
-		assertEquals(target.convert(10), "X");
-	}
 }
